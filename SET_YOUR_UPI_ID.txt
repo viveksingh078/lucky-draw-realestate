@@ -1,0 +1,51 @@
+========================================
+HOW TO SET YOUR UPI ID FOR QR CODE
+========================================
+
+Option 1: Direct Database Update (Easiest)
+------------------------------------------
+Run this SQL query in your database:
+
+INSERT INTO `settings` (`key`, `value`, `created_at`, `updated_at`) 
+VALUES ('payment_upi_id', 'yourname@paytm', NOW(), NOW())
+ON DUPLICATE KEY UPDATE `value` = 'yourname@paytm', `updated_at` = NOW();
+
+Replace 'yourname@paytm' with your actual UPI ID.
+
+
+Option 2: Add to .env file
+---------------------------
+Add this line to your .env file:
+
+PAYMENT_UPI_ID=yourname@paytm
+
+Then update this file:
+platform/plugins/real-estate/src/Http/Controllers/MembershipController.php
+
+Change line:
+$upiId = setting('payment_upi_id', 'yourname@paytm');
+
+To:
+$upiId = env('PAYMENT_UPI_ID', 'yourname@paytm');
+
+
+Option 3: Hardcode in Controller (Quick Test)
+----------------------------------------------
+Edit file: platform/plugins/real-estate/src/Http/Controllers/MembershipController.php
+
+Find line:
+$upiId = setting('payment_upi_id', 'yourname@paytm');
+
+Replace with:
+$upiId = 'yourname@paytm'; // Your actual UPI ID
+
+
+RECOMMENDED: Use Option 1 (Database)
+=====================================
+This way you can manage it from admin panel later.
+
+Your UPI ID format examples:
+- mobilenumber@paytm
+- mobilenumber@ybl
+- mobilenumber@oksbi
+- yourname@paytm

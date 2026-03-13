@@ -1,0 +1,26 @@
+-- Property Purchase System Database Table
+CREATE TABLE IF NOT EXISTS `re_property_purchases` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `account_id` bigint unsigned NOT NULL,
+  `property_id` bigint unsigned NOT NULL,
+  `property_name` varchar(255) NOT NULL,
+  `property_location` varchar(255) DEFAULT NULL,
+  `property_price` decimal(15,2) NOT NULL,
+  `gst_amount` decimal(15,2) NOT NULL DEFAULT 0,
+  `subtotal` decimal(15,2) NOT NULL,
+  `lost_draw_discount` decimal(15,2) NOT NULL DEFAULT 0,
+  `wallet_discount` decimal(15,2) NOT NULL DEFAULT 0,
+  `total_discount` decimal(15,2) NOT NULL DEFAULT 0,
+  `final_amount` decimal(15,2) NOT NULL,
+  `status` varchar(60) NOT NULL DEFAULT 'pending',
+  `admin_notes` text,
+  `approved_at` timestamp NULL DEFAULT NULL,
+  `approved_by` bigint unsigned DEFAULT NULL,
+  `rejected_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `re_property_purchases_account_id_index` (`account_id`),
+  KEY `re_property_purchases_property_id_index` (`property_id`),
+  KEY `re_property_purchases_status_index` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
